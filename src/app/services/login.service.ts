@@ -5,6 +5,9 @@ import { Login } from '../model/login.model';
   providedIn: 'root'
 })
 export class LoginService {
+  isLoggedIn(): boolean {
+      return true;
+  }
 
   constructor() { }
 
