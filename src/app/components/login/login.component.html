@@ -1,0 +1,23 @@
+
+<div class="login-card">
+    <p-card header="Login" subheader="Welcome Back!" [style]="{width: '360px'}" styleClass="p-card-shadow">
+        <ng-template pTemplate="header">
+            <img alt="Logo" src="assets/trek-trak.ico" style="height: 50; width: 75;">
+        </ng-template>
+        <div>
+            <div class="login-component">
+                <span class="p-float-label">
+                    <input id="float-input-invalid" type="text" pInputText [(ngModel)]="login.username" class="ng-invalid ng-dirty"> 
+                    <label for="float-input-invalid">Username</label>
+                </span>
+            </div>
+            <div class="login-component">
+                <p-password id="password" [(ngModel)]="login.password" [toggleMask]="true"></p-password>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Login" icon="pi pi-check"(onClick)="clickEvent($event)"></p-button>
+            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+        </ng-template>
+    </p-card>
+</div>
