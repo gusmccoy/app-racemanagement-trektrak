@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { LoginComponent } from './components/login/login.component';
+import { LoginService } from './services/login.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { LoginComponent } from './components/login/login.component';
     PasswordModule,
     FormsModule,
     InputTextModule,
+    HttpClientModule,
     CardModule
   ],
-  providers: [],
+  providers: [LoginService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

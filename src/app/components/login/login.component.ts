@@ -16,18 +16,22 @@ export class LoginComponent implements OnInit {
     { }
 
   login : Login = {
-    username : "",
-    password : ""
+    username: "",
+    password: "",
+    email: '',
+    id: 0
   }
+
+  loginSuccessful = false;
 
   ngOnInit(): void {
   }
 
   clickEvent(event: any) {
-    if(this.loginService.submitLoginRequest(this.login)) {
-      // NAVIGATE TO NEW PAGE
-      this.route.navigateByUrl('home');
-    }
+    this.loginService.submitLoginRequest(this.login).subscribe(data => {
+      if(data === true) {
+        this.route.navigateByUrl('home');
+      }
+    });
   }
-
 }
