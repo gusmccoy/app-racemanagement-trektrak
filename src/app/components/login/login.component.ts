@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 import { Login } from '../../model/login.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +10,10 @@ import { Login } from '../../model/login.model';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private loginService: LoginService,
+    private route: Router)
+    { }
 
   login : Login = {
     username : "",
@@ -16,6 +21,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  clickEvent(event: any) {
+    if(this.loginService.submitLoginRequest(this.login)) {
+      // NAVIGATE TO NEW PAGE
+      this.route.navigateByUrl('home');
+    }
   }
 
 }
