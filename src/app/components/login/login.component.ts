@@ -17,9 +17,7 @@ export class LoginComponent implements OnInit {
 
   login : Login = {
     username: "",
-    password: "",
-    email: '',
-    id: 0
+    password: ""
   }
 
   loginSuccessful = false;
@@ -27,10 +25,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  clickEvent(event: any) {
-    this.loginService.submitLoginRequest(this.login).subscribe(data => {
-      if(data === true) {
+  async loginSubmit(event: any) {
+    (await this.loginService.submitLoginRequest(this.login)).subscribe(async data => {
+      if(await this.loginService.decryptData(data.password, this.login.password)) {
+        console.log("Login successful");
         this.route.navigateByUrl('home');
+      } else {
+        console.log("Login unsuccessful");
       }
     });
   }
