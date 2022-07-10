@@ -20,7 +20,7 @@ export class LoginService {
   };
 
   submitLoginRequest(loginRequest : Login) : Observable<boolean> {
-    return this.http.post<boolean>("https://gusmccoy.dev/ws_racemanagement_trektrak/user/authenicate", 
+    return this.http.post<boolean>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/user/authenicate", 
       loginRequest, this.httpOptions);
   }
 }
