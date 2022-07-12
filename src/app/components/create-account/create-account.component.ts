@@ -28,7 +28,7 @@ export class CreateAccountComponent implements OnInit {
 
   async createAccountSubmit(event: any) {
     await this.loginService.submitCreateAccountRequest(this.createAccount);
-    this.route.navigateByUrl('home');
+    this.route.navigateByUrl('race-hub');
   }
 
 }

@@ -13,13 +13,20 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { MenubarModule } from 'primeng/menubar';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import {MegaMenuModule} from 'primeng/megamenu';
+import {SplitterModule} from 'primeng/splitter';
+import { RaceManagementComponent } from './components/race-management/race-management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     LoginComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    RaceManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +36,13 @@ import { CreateAccountComponent } from './components/create-account/create-accou
     FormsModule,
     InputTextModule,
     HttpClientModule,
-    CardModule
+    CardModule,
+    MenubarModule,
+    ToastModule,
+    MegaMenuModule,
+    SplitterModule
   ],
-  providers: [LoginService, HttpClient],
+  providers: [LoginService, HttpClient, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
