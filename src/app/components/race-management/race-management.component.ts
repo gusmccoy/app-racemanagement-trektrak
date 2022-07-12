@@ -12,4 +12,8 @@ export class RaceManagementComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  createclick(event: any) {
+    console.log("Create was clicked!");
+  }
+
 }

@@ -19,6 +19,9 @@ import { MessageService } from 'primeng/api';
 import {MegaMenuModule} from 'primeng/megamenu';
 import {SplitterModule} from 'primeng/splitter';
 import { RaceManagementComponent } from './components/race-management/race-management.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
+import { ManageEventComponent } from './components/manage-event/manage-event.component';
+import { ViewPastEventsComponent } from './components/view-past-events/view-past-events.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { RaceManagementComponent } from './components/race-management/race-manag
     LandingPageComponent,
     LoginComponent,
     CreateAccountComponent,
-    RaceManagementComponent
+    RaceManagementComponent,
+    CreateEventComponent,
+    ManageEventComponent,
+    ViewPastEventsComponent
   ],
   imports: [
     BrowserModule,
