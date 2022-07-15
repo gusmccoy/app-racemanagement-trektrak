@@ -4,6 +4,13 @@ import { ButtonModule } from 'primeng/button';
 import {PasswordModule} from 'primeng/password';
 import {InputTextModule} from 'primeng/inputtext';
 import {CardModule} from 'primeng/card';
+import {CalendarModule} from 'primeng/calendar';
+import {TableModule} from 'primeng/table';
+import {TieredMenuModule} from 'primeng/tieredmenu';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DialogModule } from 'primeng/dialog';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +29,9 @@ import { RaceManagementComponent } from './components/race-management/race-manag
 import { CreateEventComponent } from './components/create-event/create-event.component';
 import { ManageEventComponent } from './components/manage-event/manage-event.component';
 import { ViewPastEventsComponent } from './components/view-past-events/view-past-events.component';
+import { EventService } from './services/event.service';
+import { ParticipantService } from './services/participant.service';
+import { ParticipantManagementComponent } from './components/manage-event/manageable-event-components/participant-management/participant-management.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +42,8 @@ import { ViewPastEventsComponent } from './components/view-past-events/view-past
     RaceManagementComponent,
     CreateEventComponent,
     ManageEventComponent,
-    ViewPastEventsComponent
+    ViewPastEventsComponent,
+    ParticipantManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +57,16 @@ import { ViewPastEventsComponent } from './components/view-past-events/view-past
     MenubarModule,
     ToastModule,
     MegaMenuModule,
-    SplitterModule
+    SplitterModule,
+    CalendarModule,
+    TableModule,
+    TieredMenuModule,
+    DialogModule,
+    ToolbarModule,
+    InputNumberModule,
+    BrowserAnimationsModule 
   ],
-  providers: [LoginService, HttpClient, MessageService],
+  providers: [LoginService, HttpClient, MessageService, EventService, ParticipantService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

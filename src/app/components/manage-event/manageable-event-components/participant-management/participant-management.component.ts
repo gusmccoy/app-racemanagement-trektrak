@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Dialog } from 'primeng/dialog';
 import { Participant } from 'src/app/model/participant.model';
 import { ParticipantService } from 'src/app/services/participant.service';
 
 @Component({
-  selector: 'app-manage-event',
-  templateUrl: './manage-event.component.html',
-  styleUrls: ['./manage-event.component.css']
+  selector: 'app-participant-management',
+  templateUrl: './participant-management.component.html',
+  styleUrls: ['./participant-management.component.css']
 })
-export class ManageEventComponent implements OnInit {
+export class ParticipantManagementComponent implements OnInit {
 
   constructor(private participantService: ParticipantService) { }
 
@@ -85,5 +84,5 @@ export class ManageEventComponent implements OnInit {
     }
     this.participantDialog = false;
   }
-}
 
+}
