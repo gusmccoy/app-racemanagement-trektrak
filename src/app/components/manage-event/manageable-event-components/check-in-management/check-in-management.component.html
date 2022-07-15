@@ -1,0 +1,62 @@
+<div *ngIf="editCheckInPanel" style="display: block; float: right; width: 84.5%;">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="checkIns" [rows]="10" [paginator]="true" 
+        responsiveLayout="scroll" [(selection)]="selectedCheckIns" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="stationNumber">Station Number <p-sortIcon field="stationNumber"></p-sortIcon></th>
+                <th pSortableColumn="bib">Bib<p-sortIcon field="bib"></p-sortIcon></th>
+                <th pSortableColumn="bib">Time<p-sortIcon field="timestamp"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-checkIn>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="checkIn"></p-tableCheckbox>
+                </td>
+                <td>{{checkIn.stationNumber}}</td>
+                <td>{{checkIn.bib}}</td>
+                <td>{{checkIn.timestamp}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editCheckIn(checkIn)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteCheckIn(checkIn)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{checkIns ? checkIns.length : 0 }} checkIns.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="checkInDialog"  header="CheckIn Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="stationNumber">Station Number</label>
+            <p-inputNumber pInputText id="stationNumber" [(ngModel)]="checkIn.stationNumber"></p-inputNumber>
+        </div>
+        <div class="field">
+            <label for="stationNumber">Bib Number</label>
+            <p-inputNumber id="bib" [(ngModel)]="checkIn.bib" autofocus></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !checkIn.bib">Bib number is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveCheckIn()"></button>
+    </ng-template>
+</p-dialog>

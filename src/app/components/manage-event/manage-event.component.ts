@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 import { Dialog } from 'primeng/dialog';
 import { Participant } from 'src/app/model/participant.model';
 import { ParticipantService } from 'src/app/services/participant.service';
+import { CheckInManagementComponent } from './manageable-event-components/check-in-management/check-in-management.component';
+import { ParticipantManagementComponent } from './manageable-event-components/participant-management/participant-management.component';
+import { StationManagementComponent } from './manageable-event-components/station-management/station-management.component';
 
 @Component({
   selector: 'app-manage-event',
@@ -12,78 +16,60 @@ export class ManageEventComponent implements OnInit {
 
   constructor(private participantService: ParticipantService) { }
 
-  participants: Participant[] = [];
+  @ViewChild(ParticipantManagementComponent)
+  private participantComponent!: ParticipantManagementComponent;
 
-  submitted: boolean = false;
+  @ViewChild(StationManagementComponent)
+  private stationComponent!: StationManagementComponent;
 
-  participantDialog: boolean = false;
+  @ViewChild(CheckInManagementComponent)
+  private checkInComponent!: CheckInManagementComponent;
 
-  participant: Participant = {
-    bib: 0,
-    firstName: '',
-    lastName: '',
-    eventId: 0
-  };
-
-  selectedParticipants: Participant[] = [];
-
-  editParticipantPanel: boolean = true;
+  items: MenuItem[] = [];
 
   ngOnInit(): void {
-    this.participantService.getAllParticipants().subscribe(data => this.participants = data);
 
+    this.items = [
+      {
+          label:'Partipicants',
+          icon:'pi pi-users',
+          command: () => this.toggleEditScreen("PARTICIPANT")
+      },
+      {
+          label:'Stations',
+          icon:'pi pi-flag',
+          command: () => this.toggleEditScreen("STATION")
+      },
+      {
+          label:'Check-Ins',
+          icon:'pi pi-check-circle',
+          command: () => this.toggleEditScreen("CHECKIN")
+      }
+    ];
   }
 
-  editParticipant(participant: Participant) {
-    this.participant = {...participant};
-  }
-
-  deleteParticipant(participant: Participant) {
-
-  };
-
-  openNew() {
-    this.participant = {
-      bib: 0,
-      firstName: '',
-      lastName: '',
-      eventId: 0
-    };
-    this.submitted = false;
-    this.participantDialog = true;
-  }
-
-  hideDialog() {
-    this.participantDialog = false;
-    this.submitted = false;
-  }
-
-  saveParticipant() {
-    this.submitted = true;
-
-    if (this.participant.firstName.trim()) {
-        //if (this.product.id) {
-          //  this.products[this.findIndexById(this.product.id)] = this.product;
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-        //}
-        //else {
-            //this.product.id = this.createId();
-            this.participant.eventId = 1;
-            this.participantService.submitNewParticipant(this.participant);
-            this.participants.push(this.participant);
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-        //}
-
-        this.participants = [...this.participants];
-        this.participantDialog = false;
-        this.participant = {
-          bib: 0,
-          firstName: '',
-          lastName: '',
-          eventId: 0
-        };
+  toggleEditScreen(screen: string) {
+    switch(screen) {
+      case "PARTICIPANT": {
+        this.participantComponent.editParticipantPanel = true;
+        this.checkInComponent.editCheckInPanel = false;
+        this.stationComponent.editStationPanel = false;
+        break;
+      }
+      case "STATION": {
+        this.stationComponent.editStationPanel = true;
+        this.participantComponent.editParticipantPanel = false;
+        this.checkInComponent.editCheckInPanel = false;
+        break;
+      }
+      case "CHECKIN": {
+        this.checkInComponent.editCheckInPanel = true;
+        this.stationComponent.editStationPanel = false;
+        this.participantComponent.editParticipantPanel = false;
+        break;
+      }
     }
-    this.participantDialog = false;
   }
+
 }
 

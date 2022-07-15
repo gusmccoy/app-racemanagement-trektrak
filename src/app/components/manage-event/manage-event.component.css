@@ -3,3 +3,15 @@
     margin: 0 auto 2rem auto;
     display: block
 }
+
+.sidenav {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 70px;
+    display: flex;
+
+}
