@@ -18,6 +18,8 @@ export class ParticipantManagementComponent implements OnInit {
 
   participantDialog: boolean = false;
 
+  selectedEvent: String = "";
+
   participant: Participant = {
     bib: 0,
     firstName: '',

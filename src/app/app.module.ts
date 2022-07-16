@@ -11,6 +11,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -68,7 +69,8 @@ import { CheckInManagementComponent } from './components/manage-event/manageable
     DialogModule,
     ToolbarModule,
     InputNumberModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+    DropdownModule
   ],
   providers: [LoginService, HttpClient, MessageService, EventService, ParticipantService],
   bootstrap: [AppComponent]

@@ -24,9 +24,11 @@ export class CheckInManagementComponent implements OnInit {
 
   editCheckInPanel: boolean = false;
 
+  //selectedEvent: Event;
+
   ngOnInit(): void {
     this.checkInService.getAllCheckIns().subscribe(data => this.checkIns = data);
-
+    
   }
 
   editCheckIn(checkIn: CheckIn) {

@@ -24,6 +24,8 @@ export class EventManagementComponent implements OnInit {
 
   editEventPanel: boolean = false;
 
+  selectedEvent: String = "";
+
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(data => this.events = data);
   }

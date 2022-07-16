@@ -18,6 +18,8 @@ export class StationManagementComponent implements OnInit {
 
   stationDialog: boolean = false;
 
+  selectedEvent: String = "";
+
   station: Station = {
     stationNumber: 0,
     name: ''

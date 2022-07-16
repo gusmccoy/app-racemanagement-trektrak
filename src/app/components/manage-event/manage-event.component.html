@@ -2,7 +2,13 @@
     <p-tieredMenu [model]="items">
     </p-tieredMenu>
 </div>
-<app-event-management></app-event-management>
-<app-participant-management></app-participant-management>
-<app-station-management></app-station-management>
-<app-check-in-management></app-check-in-management>
+<div style="display: block; float: right; z-index: 0; width: 84.5%;">
+    <div *ngIf="toggleEventDropdown">
+        <p-dropdown [options]="events" [(ngModel)]="selectedEvent" optionLabel="name" (onChange)="broadcastSelection($event)"></p-dropdown>
+    </div>
+
+    <app-event-management></app-event-management>
+    <app-participant-management></app-participant-management>
+    <app-station-management></app-station-management>
+    <app-check-in-management></app-check-in-management>
+</div>

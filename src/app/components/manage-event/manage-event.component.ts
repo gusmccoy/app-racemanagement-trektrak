@@ -4,6 +4,8 @@ import { CheckInManagementComponent } from './manageable-event-components/check-
 import { EventManagementComponent } from './manageable-event-components/event-management/event-management.component';
 import { ParticipantManagementComponent } from './manageable-event-components/participant-management/participant-management.component';
 import { StationManagementComponent } from './manageable-event-components/station-management/station-management.component';
+import { Event } from 'src/app/model/event.model';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-manage-event',
@@ -12,7 +14,7 @@ import { StationManagementComponent } from './manageable-event-components/statio
 })
 export class ManageEventComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   @ViewChild(EventManagementComponent)
   private eventComponent!: EventManagementComponent;
@@ -28,8 +30,22 @@ export class ManageEventComponent implements OnInit {
 
   items: MenuItem[] = [];
 
-  ngOnInit(): void {
+  events: Event[] = [];
 
+  selectedEvent!: Event;
+
+  toggleEventDropdown: boolean = true;
+
+  ngOnInit(): void {
+    this.selectedEvent = {
+      name: "",
+      createUserId: 0
+    }
+
+    this.eventService.getAllEvents().subscribe(data => {
+      this.events = data;
+    });
+    
     this.items = [
       {
         label: 'Events',
@@ -61,6 +77,7 @@ export class ManageEventComponent implements OnInit {
         this.checkInComponent.editCheckInPanel = false;
         this.stationComponent.editStationPanel = false;
         this.eventComponent.editEventPanel = false;
+        this.refetchEvents();
         break;
       }
       case "STATION": {
@@ -68,6 +85,7 @@ export class ManageEventComponent implements OnInit {
         this.participantComponent.editParticipantPanel = false;
         this.checkInComponent.editCheckInPanel = false;
         this.eventComponent.editEventPanel = false;
+        this.refetchEvents();
         break;
       }
       case "CHECKIN": {
@@ -75,6 +93,7 @@ export class ManageEventComponent implements OnInit {
         this.stationComponent.editStationPanel = false;
         this.participantComponent.editParticipantPanel = false;
         this.eventComponent.editEventPanel = false;
+        this.refetchEvents();
         break;
       }
       case "EVENT": {
@@ -85,6 +104,16 @@ export class ManageEventComponent implements OnInit {
         break;
       }
     }
+  }
+
+  refetchEvents() {
+    this.eventService.getAllEvents().subscribe(data => {
+      this.events = data;
+    });
+  }
+
+  broadcastSelection(event: any) {
+    //this.checkInComponent.selectedEvent = this.selectedEvent.name;
   }
 
 }
