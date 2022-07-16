@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Station } from 'src/app/model/station.model';
 import { StationService } from 'src/app/services/station.service';
 
@@ -9,7 +10,7 @@ import { StationService } from 'src/app/services/station.service';
 })
 export class StationManagementComponent implements OnInit {
 
-  constructor(private stationService: StationService) { }
+  constructor(private stationService: StationService, private messageService: MessageService) { }
 
   stations: Station[] = [];
 
@@ -61,7 +62,7 @@ export class StationManagementComponent implements OnInit {
             this.station.eventId = 1;
             this.stationService.submitNewStation(this.station);
             this.stations.push(this.station);
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Station Created!', life: 3000});
         //}
 
         this.stations = [...this.stations];

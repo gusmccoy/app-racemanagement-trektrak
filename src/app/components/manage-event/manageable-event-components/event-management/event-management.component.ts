@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Event } from 'src/app/model/event.model';
 import { EventService } from 'src/app/services/event.service';
 
@@ -9,7 +10,7 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EventManagementComponent implements OnInit {
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private messageService: MessageService) { }
 
   events: Event[] = [];
 
@@ -57,7 +58,7 @@ export class EventManagementComponent implements OnInit {
             this.event.createUserId = 1;
             this.eventService.submitNewEvent(this.event);
             this.events.push(this.event);
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Event Created!', life: 3000});
         //}
 
         this.events = [...this.events];

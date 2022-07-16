@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Participant } from 'src/app/model/participant.model';
 import { ParticipantService } from 'src/app/services/participant.service';
 
@@ -9,7 +10,7 @@ import { ParticipantService } from 'src/app/services/participant.service';
 })
 export class ParticipantManagementComponent implements OnInit {
 
-  constructor(private participantService: ParticipantService) { }
+  constructor(private participantService: ParticipantService, private messageService: MessageService) { }
 
   participants: Participant[] = [];
 
@@ -70,7 +71,7 @@ export class ParticipantManagementComponent implements OnInit {
             this.participant.eventId = 1;
             this.participantService.submitNewParticipant(this.participant);
             this.participants.push(this.participant);
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Participant Added!', life: 3000});
         //}
 
         this.participants = [...this.participants];

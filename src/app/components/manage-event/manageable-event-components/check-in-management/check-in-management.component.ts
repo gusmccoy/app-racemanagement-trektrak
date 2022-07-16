@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { CheckIn } from 'src/app/model/check-in.model';
 import { CheckInService } from 'src/app/services/check-in.service';
 
@@ -9,7 +10,7 @@ import { CheckInService } from 'src/app/services/check-in.service';
 })
 export class CheckInManagementComponent implements OnInit {
 
-  constructor(private checkInService: CheckInService) { }
+  constructor(private checkInService: CheckInService, private messageService: MessageService) { }
 
   checkIns: CheckIn[] = [];
 
@@ -59,7 +60,7 @@ export class CheckInManagementComponent implements OnInit {
             this.checkIn.timestamp = new Date();
             this.checkInService.submitNewCheckIn(this.checkIn);
             this.checkIns.push(this.checkIn);
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+            this.messageService.add({severity:'success', summary: 'Successful!', detail: 'Check-In Added', life: 3000});
         //}
 
         this.checkIns = [...this.checkIns];
