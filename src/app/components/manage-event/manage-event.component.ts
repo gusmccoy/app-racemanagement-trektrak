@@ -31,6 +31,11 @@ export class ManageEventComponent implements OnInit {
 
     this.items = [
       {
+        label: 'Events',
+        icon: 'pi pi-calendar-plus',
+        command: () => this.toggleEditScreen("EVENT")
+      },
+      {
           label:'Partipicants',
           icon:'pi pi-users',
           command: () => this.toggleEditScreen("PARTICIPANT")
@@ -44,7 +49,7 @@ export class ManageEventComponent implements OnInit {
           label:'Check-Ins',
           icon:'pi pi-check-circle',
           command: () => this.toggleEditScreen("CHECKIN")
-      }
+      },
     ];
   }
 
