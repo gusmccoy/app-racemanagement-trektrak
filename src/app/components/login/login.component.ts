@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   createAccount(event: any) {
-    this.route.navigateByUrl('create');
+    this.route.navigateByUrl('create-account');
   }
 
   showError() {

@@ -1,0 +1,7 @@
+:host ::ng-deep .p-card-header img {
+    padding: 10px;
+}
+
+:host ::ng-deep .p-inputtext {
+    width: 85%;
+}

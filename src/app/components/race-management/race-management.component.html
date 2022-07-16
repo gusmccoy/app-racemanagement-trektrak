@@ -1,9 +1,9 @@
 
 <div class="control-panel">
     <div class="panel-card" style="float: left">
-        <p-card header="Create Event" subheader="Welcome!" [style]="" styleClass="p-card-shadow">
-            <ng-template pTemplate="header" style="height: 200px; width: 200px">
-                <a [routerLink]="['/create-event']">
+        <p-card header="Setup" subheader="Create and Manage Events" [style]="" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <a [routerLink]="['/manage-event']">
                     <img alt="Logo" src="assets/create.png">
                 </a>
             </ng-template>
@@ -13,9 +13,9 @@
     </div>
 
     <div class="panel-card" style="float: center">
-        <p-card header="Manage Existing" subheader="Welcome!" [style]="" styleClass="p-card-shadow">
-            <ng-template pTemplate="header" style="height: 200px; width: 200px">
-                <a [routerLink]="['/manage-event']">
+        <p-card header="Continue" subheader="Log participants in ongoing event." [style]="" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <a [routerLink]="['/check-in']">
                     <img alt="Logo" src="assets/clipboard.png">
                 </a>
             </ng-template>
@@ -26,8 +26,8 @@
     </div>
 
     <div class="panel-card" style="float: right">
-        <p-card header="Review Past Events" subheader="Welcome!" [style]="" styleClass="p-card-shadow">
-            <ng-template pTemplate="header" style="height: 200px; width: 200px">
+        <p-card header="Past" subheader="Review stats from past events" [style]="" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
                 <a [routerLink]="['/review-events']">
                     <img alt="Logo" src="assets/history.png">
                 </a>

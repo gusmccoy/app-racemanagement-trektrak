@@ -18,4 +18,8 @@ export class EventService {
     this.http.post<Event>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/event/new", 
       newEventRequest, this.httpOptions).subscribe();
   }
+
+  getAllEvents() : Observable<Event[]> {
+    return this.http.get<Event[]>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/event/all", this.httpOptions);
+  }
 }

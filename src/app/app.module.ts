@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ButtonModule } from 'primeng/button';
-import {PasswordModule} from 'primeng/password';
-import {InputTextModule} from 'primeng/inputtext';
-import {CardModule} from 'primeng/card';
-import {CalendarModule} from 'primeng/calendar';
-import {TableModule} from 'primeng/table';
-import {TieredMenuModule} from 'primeng/tieredmenu';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
+import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
-import {InputNumberModule} from 'primeng/inputnumber';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,10 +23,10 @@ import { CreateAccountComponent } from './components/create-account/create-accou
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import {MegaMenuModule} from 'primeng/megamenu';
-import {SplitterModule} from 'primeng/splitter';
+import { MegaMenuModule } from 'primeng/megamenu';
+import { SplitterModule } from 'primeng/splitter';
 import { RaceManagementComponent } from './components/race-management/race-management.component';
-import { CreateEventComponent } from './components/create-event/create-event.component';
+import { EventManagementComponent } from './components/manage-event/manageable-event-components/event-management/event-management.component';
 import { ManageEventComponent } from './components/manage-event/manage-event.component';
 import { ViewPastEventsComponent } from './components/view-past-events/view-past-events.component';
 import { EventService } from './services/event.service';
@@ -42,7 +42,7 @@ import { CheckInManagementComponent } from './components/manage-event/manageable
     LoginComponent,
     CreateAccountComponent,
     RaceManagementComponent,
-    CreateEventComponent,
+    EventManagementComponent,
     ManageEventComponent,
     ViewPastEventsComponent,
     ParticipantManagementComponent,
