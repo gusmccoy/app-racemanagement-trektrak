@@ -1,0 +1,60 @@
+<p-toast></p-toast>
+<div *ngIf="editStationPanel" style="width: 100%;">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="stations" [rows]="10" [paginator]="true" 
+        responsiveLayout="scroll" [(selection)]="selectedStations" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="stationNumber">Station Number <p-sortIcon field="stationNumber"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-station>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="station"></p-tableCheckbox>
+                </td>
+                <td>{{station.stationNumber}}</td>
+                <td>{{station.name}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editStation(station)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteStation(station)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{stations ? stations.length : 0 }} stations.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="stationDialog"  header="Station Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Station Number</label>
+            <p-inputNumber id="stationNumber" [(ngModel)]="station.stationNumber"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !station.stationNumber">Station number is required.</small>
+        </div>
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="station.name" required autofocus />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveStation()"></button>
+    </ng-template>
+</p-dialog>

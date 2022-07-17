@@ -1,0 +1,39 @@
+
+<div class="control-panel">
+    <div class="panel-card" style="float: left">
+        <p-card header="Setup" subheader="Create and Manage Events" [style]="" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <a [routerLink]="['/manage-event']">
+                    <img alt="Logo" src="assets/create.png">
+                </a>
+            </ng-template>
+            <ng-template pTemplate="footer">
+            </ng-template>
+        </p-card>
+    </div>
+
+    <div class="panel-card" style="float: center">
+        <p-card header="Continue" subheader="Log participants in ongoing event." [style]="" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <a [routerLink]="['/ongoing-event']">
+                    <img alt="Logo" src="assets/clipboard.png">
+                </a>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+            </ng-template>
+        </p-card>
+    </div>
+
+    <div class="panel-card" style="float: right">
+        <p-card header="Past" subheader="Review stats from past events" [style]="" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <a [routerLink]="['/review-events']">
+                    <img alt="Logo" src="assets/history.png">
+                </a>
+            </ng-template>
+            <ng-template pTemplate="footer">
+            </ng-template>
+        </p-card>
+    </div>
+</div>

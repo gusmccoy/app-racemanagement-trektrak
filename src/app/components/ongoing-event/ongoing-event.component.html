@@ -1,0 +1,32 @@
+<div style="display: block; float: right; z-index: 0; width: 84.5%;">
+    <p-dropdown [options]="events" [(ngModel)]="selectedEvent" optionLabel="name" (onChange)="fetchEventStations($event)"></p-dropdown>
+    <p-dropdown [options]="stations" [(ngModel)]="selectedStation" optionLabel="name" (onChange)="fetchCheckIns($event)"></p-dropdown>
+    <p-inputNumber inputId="enteredBib" [(ngModel)]="checkinBib"></p-inputNumber>
+
+    <p-table #dt [value]="checkIns" [rows]="10" [paginator]="true" 
+        responsiveLayout="scroll" [(selection)]="selectedCheckIns" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="stationNumber">Station Number <p-sortIcon field="stationNumber"></p-sortIcon></th>
+                <th pSortableColumn="bib">Bib<p-sortIcon field="bib"></p-sortIcon></th>
+                <th pSortableColumn="bib">Time<p-sortIcon field="timestamp"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-checkIn>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="checkIn"></p-tableCheckbox>
+                </td>
+                <td>{{checkIn.stationNumber}}</td>
+                <td>{{checkIn.bib}}</td>
+                <td>{{checkIn.timestamp}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

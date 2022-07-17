@@ -1,8 +1,8 @@
-
+<p-toast [showTransitionOptions]="'translateY(100%)'" [hideTransitionOptions]="'0ms'"></p-toast>
 <div class="login-card">
-    <p-card header="Login" subheader="Welcome Back!" [style]="{width: '360px'}" styleClass="p-card-shadow">
-        <ng-template pTemplate="header">
-            <img alt="Logo" src="assets/trek-trak.ico" style="height: 50; width: 75;">
+    <p-card header="Login" subheader="Welcome Back!" [style]="" styleClass="p-card-shadow">
+        <ng-template pTemplate="header" style="height: 200px; width: 200px">
+            <img alt="Logo" src="assets/mountain.png">
         </ng-template>
         <div>
             <div class="login-component">
@@ -16,8 +16,8 @@
             </div>
         </div>
         <ng-template pTemplate="footer">
-            <p-button label="Login" icon="pi pi-check"(onClick)="clickEvent($event)"></p-button>
-            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
+            <p-button label="Submit" icon="pi pi-check"(onClick)="loginSubmit($event)"></p-button>
+            <p-button label="Create" icon="pi pi-times" (onClick)="createAccount($event)" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"></p-button>
         </ng-template>
     </p-card>
 </div>

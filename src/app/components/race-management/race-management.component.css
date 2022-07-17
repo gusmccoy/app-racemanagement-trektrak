@@ -1,0 +1,8 @@
+.panel-card {
+    margin: auto;
+    width: 20%;
+}
+
+.control-panel {
+    display: flex;
+}
