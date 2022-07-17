@@ -35,6 +35,7 @@ import { ParticipantService } from './services/participant.service';
 import { ParticipantManagementComponent } from './components/manage-event/manageable-event-components/participant-management/participant-management.component';
 import { StationManagementComponent } from './components/manage-event/manageable-event-components/station-management/station-management.component';
 import { CheckInManagementComponent } from './components/manage-event/manageable-event-components/check-in-management/check-in-management.component';
+import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { CheckInManagementComponent } from './components/manage-event/manageable
     ViewPastEventsComponent,
     ParticipantManagementComponent,
     StationManagementComponent,
-    CheckInManagementComponent
+    CheckInManagementComponent,
+    OngoingEventComponent
   ],
   imports: [
     BrowserModule,
