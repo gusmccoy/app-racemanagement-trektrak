@@ -24,6 +24,11 @@ export class CheckInService {
     return this.http.get<CheckIn[]>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/all", this.httpOptions);
   }
 
+  getAllCheckInsByEventId(eventId: number) : Observable<CheckIn[]> {
+    return this.http.get<CheckIn[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/all/${eventId}`,
+     this.httpOptions);
+  }
+
   getAllCheckInsByEventAndStationId(eventId: number, stationId: number) : Observable<CheckIn[]> {
     return this.http.get<CheckIn[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/all/${eventId}/${stationId}`,
      this.httpOptions);

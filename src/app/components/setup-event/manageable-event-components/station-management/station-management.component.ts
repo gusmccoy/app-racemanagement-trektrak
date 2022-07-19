@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Station } from 'src/app/model/station.model';
 import { StationService } from 'src/app/services/station.service';
@@ -18,7 +18,7 @@ export class StationManagementComponent implements OnInit {
 
   stationDialog: boolean = false;
 
-  selectedEvent: String = "";
+  selectedEvent?: number;
 
   station: Station = {
     stationNumber: 0,
@@ -30,8 +30,12 @@ export class StationManagementComponent implements OnInit {
   editStationPanel: boolean = false;
 
   ngOnInit(): void {
-    this.stationService.getAllStations().subscribe(data => this.stations = data);
+  }
 
+  fetchStations(id: number) {
+    this.selectedEvent = id;
+    this.stationService.getAllStationsByEventId(this.selectedEvent as number)
+      .subscribe(data => this.stations = data);
   }
 
   editStation(station: Station) {
@@ -61,7 +65,7 @@ export class StationManagementComponent implements OnInit {
         //}
         //else {
             //this.product.id = this.createId();
-            this.station.eventId = 1;
+            this.station.eventId = this.selectedEvent;
             this.stationService.submitNewStation(this.station);
             this.stations.push(this.station);
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Station Created!', life: 3000});

@@ -24,7 +24,7 @@ export class ParticipantService {
     return this.http.get<Participant[]>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/participant/all", this.httpOptions);
   }
 
-  getAllParticipantsByEventId() : Observable<Participant[]> {
-    return this.http.get<Participant[]>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/participant/all/" + LoginStatus.userId, this.httpOptions);
+  getAllParticipantsByEventId(eventId: number) : Observable<Participant[]> {
+    return this.http.get<Participant[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/participant/all/${eventId}`, this.httpOptions);
   }
 }

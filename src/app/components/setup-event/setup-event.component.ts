@@ -20,22 +20,17 @@ export class SetupEventComponent implements OnInit {
 
   @ViewChild(EventManagementComponent)
   private eventComponent!: EventManagementComponent;
-
   @ViewChild(ParticipantManagementComponent)
   private participantComponent!: ParticipantManagementComponent;
-
   @ViewChild(StationManagementComponent)
   private stationComponent!: StationManagementComponent;
-
   @ViewChild(CheckInManagementComponent)
   private checkInComponent!: CheckInManagementComponent;
 
   items: MenuItem[] = [];
-
   events: Event[] = [];
 
   selectedEvent!: Event;
-
   toggleEventDropdown: boolean = true;
 
   ngOnInit(): void {
@@ -44,13 +39,8 @@ export class SetupEventComponent implements OnInit {
       LoginStatus.wasNavigatedToLogin = true;
       this.route.navigateByUrl('');
     }
-    
-    this.selectedEvent = {
-      name: "",
-      createUserId: 0
-    }
 
-    this.eventService.getAllEvents().subscribe(data => {
+    this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
     });
     
@@ -109,19 +99,26 @@ export class SetupEventComponent implements OnInit {
         this.checkInComponent.editCheckInPanel = false;
         this.stationComponent.editStationPanel = false;
         this.participantComponent.editParticipantPanel = false;
+        this.eventComponent.fetchEvents();
         break;
       }
     }
   }
 
   refetchEvents() {
-    this.eventService.getAllEvents().subscribe(data => {
+    this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
     });
   }
 
   broadcastSelection(event: any) {
-    //this.checkInComponent.selectedEvent = this.selectedEvent.name;
+    this.checkInComponent.selectedEvent = this.selectedEvent.id;
+    this.participantComponent.selectedEvent = this.selectedEvent.id;
+    this.stationComponent.selectedEvent = this.selectedEvent.id;
+
+    this.participantComponent.fetchParticipants(this.selectedEvent.id as number);
+    this.checkInComponent.fetchCheckIns(this.selectedEvent.id as number);
+    this.stationComponent.fetchStations(this.selectedEvent.id as number );
   }
 
 }

@@ -24,11 +24,14 @@ export class CheckInManagementComponent implements OnInit {
 
   editCheckInPanel: boolean = false;
 
-  //selectedEvent: Event;
+  selectedEvent?: number;
 
-  ngOnInit(): void {
-    this.checkInService.getAllCheckIns().subscribe(data => this.checkIns = data);
-    
+  ngOnInit(): void {}
+
+  fetchCheckIns(id: number) {
+    this.selectedEvent = id;
+    this.checkInService.getAllCheckInsByEventId(this.selectedEvent as number)
+      .subscribe(data => this.checkIns = data);
   }
 
   editCheckIn(checkIn: CheckIn) {
@@ -58,7 +61,7 @@ export class CheckInManagementComponent implements OnInit {
         //}
         //else {
             //this.product.id = this.createId();
-            this.checkIn.eventId = 1;
+            this.checkIn.eventId = this.selectedEvent;
             this.checkIn.timestamp = new Date();
             this.checkInService.submitNewCheckIn(this.checkIn);
             this.checkIns.push(this.checkIn);
