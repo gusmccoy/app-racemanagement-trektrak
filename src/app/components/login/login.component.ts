@@ -3,6 +3,8 @@ import { LoginService } from 'src/app/services/login.service';
 import { Login } from '../../model/login.model';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { LoginStatus } from 'src/app/static/login-status';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private route: Router,
-    private messageService: MessageService)
+    private messageService: MessageService,
+    private location: Location)
     { }
 
   login : Login = {
@@ -29,8 +32,15 @@ export class LoginComponent implements OnInit {
   async loginSubmit(event: any) {
     (await this.loginService.submitLoginRequest(this.login)).subscribe(async data => {
       if(await this.loginService.decryptData(data.password, this.login.password)) {
-        console.log("Login successful");
-        this.route.navigateByUrl('race-hub');
+        LoginStatus.status = true;
+        LoginStatus.username = this.login.username;
+        LoginStatus.userId = data.id;
+
+        if(LoginStatus.wasNavigatedToLogin) {
+          this.location.back();
+        } else {
+          this.route.navigateByUrl('race-hub');
+        }
       } else {
         this.showError();
       }

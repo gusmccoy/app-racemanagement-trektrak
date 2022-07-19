@@ -1,10 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CheckIn } from 'src/app/model/check-in.model';
 import { Event } from 'src/app/model/event.model';
 import { Station } from 'src/app/model/station.model';
 import { CheckInService } from 'src/app/services/check-in.service';
 import { EventService } from 'src/app/services/event.service';
 import { StationService } from 'src/app/services/station.service';
+import { LoginStatus } from 'src/app/static/login-status';
 
 @Component({
   selector: 'app-ongoing-event',
@@ -14,7 +16,7 @@ import { StationService } from 'src/app/services/station.service';
 export class OngoingEventComponent implements OnInit {
 
   constructor(private eventService: EventService, private stationService: StationService,
-     private checkInService: CheckInService) { }
+     private checkInService: CheckInService, private route: Router) { }
 
   events: Event[] = [];
   stations: Station[] = [];
@@ -28,13 +30,17 @@ export class OngoingEventComponent implements OnInit {
   checkIn?: CheckIn;
 
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe(data => {
+    if(!LoginStatus.status) {
+      LoginStatus.wasNavigatedToLogin = true;
+      this.route.navigateByUrl('');
+    }
+    this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
     })
   }
 
   fetchEventStations(event: any) {
-    this.stationService.getAllStations().subscribe(data => {
+    this.stationService.getAllStationsByEventId(this.selectedEvent?.createUserId as number).subscribe(data => {
       this.stations = data;
       this.selectedStation = this.stations[0];
       this.fetchCheckIns(null);
@@ -51,7 +57,7 @@ export class OngoingEventComponent implements OnInit {
     if(this.validEntry(this.checkinBib)) {
       this.checkIn = {
         stationNumber: this.selectedStation?.stationNumber,
-        eventId: 1,
+        eventId: this.selectedEvent?.id,
         bib: this.checkinBib,
         timestamp: new Date()
       }

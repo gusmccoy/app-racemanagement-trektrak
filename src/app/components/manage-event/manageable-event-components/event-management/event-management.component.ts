@@ -57,7 +57,7 @@ export class EventManagementComponent implements OnInit {
         //}
         //else {
             //this.product.id = this.createId();
-            this.event.createUserId = 1;
+            this.event.createUserId = 2;
             this.eventService.submitNewEvent(this.event);
             this.events.push(this.event);
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Event Created!', life: 3000});

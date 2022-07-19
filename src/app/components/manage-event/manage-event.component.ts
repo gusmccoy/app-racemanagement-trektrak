@@ -6,6 +6,8 @@ import { ParticipantManagementComponent } from './manageable-event-components/pa
 import { StationManagementComponent } from './manageable-event-components/station-management/station-management.component';
 import { Event } from 'src/app/model/event.model';
 import { EventService } from 'src/app/services/event.service';
+import { LoginStatus } from 'src/app/static/login-status';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-event',
@@ -14,7 +16,7 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class ManageEventComponent implements OnInit {
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private route: Router) { }
 
   @ViewChild(EventManagementComponent)
   private eventComponent!: EventManagementComponent;
@@ -37,6 +39,12 @@ export class ManageEventComponent implements OnInit {
   toggleEventDropdown: boolean = true;
 
   ngOnInit(): void {
+
+    if(!LoginStatus.status) {
+      LoginStatus.wasNavigatedToLogin = true;
+      this.route.navigateByUrl('');
+    }
+    
     this.selectedEvent = {
       name: "",
       createUserId: 0

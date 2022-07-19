@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginStatus } from 'src/app/static/login-status';
 
 @Component({
   selector: 'app-race-management',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RaceManagementComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
+    if(!LoginStatus.status) {
+      LoginStatus.wasNavigatedToLogin = true;
+      this.route.navigateByUrl('');
+    }
   }
 
   createclick(event: any) {
