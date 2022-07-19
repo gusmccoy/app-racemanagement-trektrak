@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-event',
-  templateUrl: './manage-event.component.html',
-  styleUrls: ['./manage-event.component.css']
+  templateUrl: './setup-event.component.html',
+  styleUrls: ['./setup-event.component.css']
 })
-export class ManageEventComponent implements OnInit {
+export class SetupEventComponent implements OnInit {
 
   constructor(private eventService: EventService, private route: Router) { }
 
