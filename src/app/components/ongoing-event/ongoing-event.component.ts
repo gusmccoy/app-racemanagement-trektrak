@@ -34,16 +34,23 @@ export class OngoingEventComponent implements OnInit {
       LoginStatus.wasNavigatedToLogin = true;
       this.route.navigateByUrl('');
     }
+
     this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
+      this.selectedEvent = this.events[0]; 
+      this.fetchEventStations(null);
     })
   }
 
   fetchEventStations(event: any) {
-    this.stationService.getAllStationsByEventId(this.selectedEvent?.createUserId as number).subscribe(data => {
+    this.stationService.getAllStationsByEventId(this.selectedEvent?.id as number).subscribe(data => {
       this.stations = data;
-      this.selectedStation = this.stations[0];
-      this.fetchCheckIns(null);
+      if(this.stations.length > 0) {
+        this.selectedStation = this.stations[0];
+        this.fetchCheckIns(null);
+      } else {
+        this.checkIns = [];
+      }
     });
   }
 
