@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { CheckIn } from 'src/app/model/check-in.model';
 import { Event } from 'src/app/model/event.model';
 import { Station } from 'src/app/model/station.model';
@@ -16,7 +17,7 @@ import { LoginStatus } from 'src/app/static/login-status';
 export class OngoingEventComponent implements OnInit {
 
   constructor(private eventService: EventService, private stationService: StationService,
-     private checkInService: CheckInService, private route: Router) { }
+     private checkInService: CheckInService, private route: Router, private messageService: MessageService) { }
 
   events: Event[] = [];
   stations: Station[] = [];
@@ -55,7 +56,8 @@ export class OngoingEventComponent implements OnInit {
   }
 
   fetchCheckIns(event: any) {
-    this.checkInService.getAllCheckIns().subscribe(data => {
+    this.checkInService.getAllCheckInsByEventAndStationId(this.selectedEvent?.id as number,
+      this.selectedStation?.stationNumber as number).subscribe(data => {
       this.checkIns = data;
     })
   }
@@ -71,6 +73,8 @@ export class OngoingEventComponent implements OnInit {
       this.checkInService.submitNewCheckIn(this.checkIn);
       this.checkIns.push(this.checkIn);
       this.checkinBib = 0;
+    } else {
+      this.messageService.add({severity:'warn', summary: 'Notice', detail: 'Check in logged for bib not in list.', life: 3000});
     }
   }
 

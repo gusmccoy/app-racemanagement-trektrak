@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CheckIn } from '../model/check-in.model';
-import { LoginStatus } from '../static/login-status';
 
 @Injectable({
   providedIn: 'root'
