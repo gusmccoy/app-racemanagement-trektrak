@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { CheckIn } from 'src/app/model/check-in.model';
 import { Event } from 'src/app/model/event.model';
 import { Station } from 'src/app/model/station.model';
@@ -30,6 +30,8 @@ export class OngoingEventComponent implements OnInit {
   checkinBib: number = 0;
   checkIn?: CheckIn;
 
+  items: MenuItem[] = [];
+
   ngOnInit(): void {
     if(!LoginStatus.status) {
       LoginStatus.wasNavigatedToLogin = true;
@@ -41,6 +43,29 @@ export class OngoingEventComponent implements OnInit {
       this.selectedEvent = this.events[0]; 
       this.fetchEventStations(null);
     })
+
+    this.items = [
+      {
+        label: 'Check In Participants',
+        icon: 'pi pi-check-circle',
+        //command: () => this.toggleEditScreen("EVENT")
+      },
+      {
+        label:'Event Stats',
+        icon:'pi pi-chart-bar',
+        //command: () => this.toggleEditScreen("PARTICIPANT")
+      },
+      {
+        label:'Event Reports',
+        icon:'pi pi-book',
+        //command: () => this.toggleEditScreen("STATION")
+      },
+      {
+        label:'Event Settings',
+        icon:'pi pi-check-circle',
+        //command: () => this.toggleEditScreen("CHECKIN")
+      },
+    ];
   }
 
   fetchEventStations(event: any) {

@@ -12,6 +12,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -72,7 +74,9 @@ import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.
     ToolbarModule,
     InputNumberModule,
     BrowserAnimationsModule,
-    DropdownModule
+    DropdownModule,
+    BadgeModule,
+    AvatarModule
   ],
   providers: [LoginService, HttpClient, MessageService, EventService, ParticipantService],
   bootstrap: [AppComponent]

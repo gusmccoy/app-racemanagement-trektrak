@@ -1,4 +1,8 @@
 <p-toast></p-toast>
+<div class="sidenav">
+    <p-tieredMenu [model]="items">
+    </p-tieredMenu>
+</div>
 <div style="display: block; float: right; z-index: 0; width: 84.5%;">
     <p-dropdown [options]="events" [(ngModel)]="selectedEvent" optionLabel="name" (onChange)="fetchEventStations($event)"></p-dropdown>
     <p-dropdown [options]="stations" [(ngModel)]="selectedStation" optionLabel="name" (onChange)="fetchCheckIns($event)"></p-dropdown>
