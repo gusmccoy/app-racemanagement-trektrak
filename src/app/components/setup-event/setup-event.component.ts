@@ -6,43 +6,41 @@ import { ParticipantManagementComponent } from './manageable-event-components/pa
 import { StationManagementComponent } from './manageable-event-components/station-management/station-management.component';
 import { Event } from 'src/app/model/event.model';
 import { EventService } from 'src/app/services/event.service';
+import { LoginStatus } from 'src/app/static/login-status';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-event',
-  templateUrl: './manage-event.component.html',
-  styleUrls: ['./manage-event.component.css']
+  templateUrl: './setup-event.component.html',
+  styleUrls: ['./setup-event.component.css']
 })
-export class ManageEventComponent implements OnInit {
+export class SetupEventComponent implements OnInit {
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private route: Router) { }
 
   @ViewChild(EventManagementComponent)
   private eventComponent!: EventManagementComponent;
-
   @ViewChild(ParticipantManagementComponent)
   private participantComponent!: ParticipantManagementComponent;
-
   @ViewChild(StationManagementComponent)
   private stationComponent!: StationManagementComponent;
-
   @ViewChild(CheckInManagementComponent)
   private checkInComponent!: CheckInManagementComponent;
 
   items: MenuItem[] = [];
-
   events: Event[] = [];
 
   selectedEvent!: Event;
-
   toggleEventDropdown: boolean = true;
 
   ngOnInit(): void {
-    this.selectedEvent = {
-      name: "",
-      createUserId: 0
+
+    if(!LoginStatus.status) {
+      LoginStatus.wasNavigatedToLogin = true;
+      this.route.navigateByUrl('');
     }
 
-    this.eventService.getAllEvents().subscribe(data => {
+    this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
     });
     
@@ -101,19 +99,26 @@ export class ManageEventComponent implements OnInit {
         this.checkInComponent.editCheckInPanel = false;
         this.stationComponent.editStationPanel = false;
         this.participantComponent.editParticipantPanel = false;
+        this.eventComponent.fetchEvents();
         break;
       }
     }
   }
 
   refetchEvents() {
-    this.eventService.getAllEvents().subscribe(data => {
+    this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
     });
   }
 
   broadcastSelection(event: any) {
-    //this.checkInComponent.selectedEvent = this.selectedEvent.name;
+    this.checkInComponent.selectedEvent = this.selectedEvent.id;
+    this.participantComponent.selectedEvent = this.selectedEvent.id;
+    this.stationComponent.selectedEvent = this.selectedEvent.id;
+
+    this.participantComponent.fetchParticipants(this.selectedEvent.id as number);
+    this.checkInComponent.fetchCheckIns(this.selectedEvent.id as number);
+    this.stationComponent.fetchStations(this.selectedEvent.id as number );
   }
 
 }

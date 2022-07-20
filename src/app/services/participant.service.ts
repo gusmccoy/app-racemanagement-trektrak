@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Participant } from '../model/participant.model';
+import { LoginStatus } from '../static/login-status';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class ParticipantService {
 
   getAllParticipants() : Observable<Participant[]> {
     return this.http.get<Participant[]>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/participant/all", this.httpOptions);
+  }
+
+  getAllParticipantsByEventId(eventId: number) : Observable<Participant[]> {
+    return this.http.get<Participant[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/participant/all/${eventId}`, this.httpOptions);
   }
 }

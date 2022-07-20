@@ -13,12 +13,13 @@ export class ParticipantManagementComponent implements OnInit {
   constructor(private participantService: ParticipantService, private messageService: MessageService) { }
 
   participants: Participant[] = [];
+  selectedParticipants: Participant[] = [];
 
   submitted: boolean = false;
-
   participantDialog: boolean = false;
+  editParticipantPanel: boolean = false;
 
-  selectedEvent: String = "";
+  selectedEvent?: number;
 
   participant: Participant = {
     bib: 0,
@@ -27,13 +28,13 @@ export class ParticipantManagementComponent implements OnInit {
     eventId: 0
   };
 
-  selectedParticipants: Participant[] = [];
-
-  editParticipantPanel: boolean = true;
-
   ngOnInit(): void {
-    this.participantService.getAllParticipants().subscribe(data => this.participants = data);
+  }
 
+  fetchParticipants(id: number) {
+    this.selectedEvent = id;
+    this.participantService.getAllParticipantsByEventId(this.selectedEvent as number)
+      .subscribe(data => this.participants = data);
   }
 
   editParticipant(participant: Participant) {
@@ -41,7 +42,6 @@ export class ParticipantManagementComponent implements OnInit {
   }
 
   deleteParticipant(participant: Participant) {
-
   };
 
   openNew() {
@@ -70,7 +70,7 @@ export class ParticipantManagementComponent implements OnInit {
         //}
         //else {
             //this.product.id = this.createId();
-            this.participant.eventId = 1;
+            this.participant.eventId = this.selectedEvent as number;
             this.participantService.submitNewParticipant(this.participant);
             this.participants.push(this.participant);
             this.messageService.add({severity:'success', summary: 'Successful', detail: 'Participant Added!', life: 3000});

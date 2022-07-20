@@ -1,10 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem, MessageService } from 'primeng/api';
 import { CheckIn } from 'src/app/model/check-in.model';
 import { Event } from 'src/app/model/event.model';
 import { Station } from 'src/app/model/station.model';
 import { CheckInService } from 'src/app/services/check-in.service';
 import { EventService } from 'src/app/services/event.service';
 import { StationService } from 'src/app/services/station.service';
+import { LoginStatus } from 'src/app/static/login-status';
 
 @Component({
   selector: 'app-ongoing-event',
@@ -14,7 +17,7 @@ import { StationService } from 'src/app/services/station.service';
 export class OngoingEventComponent implements OnInit {
 
   constructor(private eventService: EventService, private stationService: StationService,
-     private checkInService: CheckInService) { }
+     private checkInService: CheckInService, private route: Router, private messageService: MessageService) { }
 
   events: Event[] = [];
   stations: Station[] = [];
@@ -27,22 +30,59 @@ export class OngoingEventComponent implements OnInit {
   checkinBib: number = 0;
   checkIn?: CheckIn;
 
+  items: MenuItem[] = [];
+
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe(data => {
+    if(!LoginStatus.status) {
+      LoginStatus.wasNavigatedToLogin = true;
+      this.route.navigateByUrl('');
+    }
+
+    this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
+      this.selectedEvent = this.events[0]; 
+      this.fetchEventStations(null);
     })
+
+    this.items = [
+      {
+        label: 'Check In Participants',
+        icon: 'pi pi-check-circle',
+        //command: () => this.toggleEditScreen("EVENT")
+      },
+      {
+        label:'Event Stats',
+        icon:'pi pi-chart-bar',
+        //command: () => this.toggleEditScreen("PARTICIPANT")
+      },
+      {
+        label:'Event Reports',
+        icon:'pi pi-book',
+        //command: () => this.toggleEditScreen("STATION")
+      },
+      {
+        label:'Event Settings',
+        icon:'pi pi-check-circle',
+        //command: () => this.toggleEditScreen("CHECKIN")
+      },
+    ];
   }
 
   fetchEventStations(event: any) {
-    this.stationService.getAllStations().subscribe(data => {
+    this.stationService.getAllStationsByEventId(this.selectedEvent?.id as number).subscribe(data => {
       this.stations = data;
-      this.selectedStation = this.stations[0];
-      this.fetchCheckIns(null);
+      if(this.stations.length > 0) {
+        this.selectedStation = this.stations[0];
+        this.fetchCheckIns(null);
+      } else {
+        this.checkIns = [];
+      }
     });
   }
 
   fetchCheckIns(event: any) {
-    this.checkInService.getAllCheckIns().subscribe(data => {
+    this.checkInService.getAllCheckInsByEventAndStationId(this.selectedEvent?.id as number,
+      this.selectedStation?.stationNumber as number).subscribe(data => {
       this.checkIns = data;
     })
   }
@@ -51,13 +91,15 @@ export class OngoingEventComponent implements OnInit {
     if(this.validEntry(this.checkinBib)) {
       this.checkIn = {
         stationNumber: this.selectedStation?.stationNumber,
-        eventId: 1,
+        eventId: this.selectedEvent?.id,
         bib: this.checkinBib,
         timestamp: new Date()
       }
       this.checkInService.submitNewCheckIn(this.checkIn);
       this.checkIns.push(this.checkIn);
       this.checkinBib = 0;
+    } else {
+      this.messageService.add({severity:'warn', summary: 'Notice', detail: 'Check in logged for bib not in list.', life: 3000});
     }
   }
 

@@ -22,4 +22,8 @@ export class StationService {
   getAllStations() : Observable<Station[]> {
     return this.http.get<Station[]>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/all", this.httpOptions);
   }
+
+  getAllStationsByEventId(eventId: number) : Observable<Station[]> {
+    return this.http.get<Station[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/all/${eventId}`, this.httpOptions);
+  }
 }

@@ -12,6 +12,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -27,14 +29,14 @@ import { MessageService } from 'primeng/api';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { SplitterModule } from 'primeng/splitter';
 import { RaceManagementComponent } from './components/race-management/race-management.component';
-import { EventManagementComponent } from './components/manage-event/manageable-event-components/event-management/event-management.component';
-import { ManageEventComponent } from './components/manage-event/manage-event.component';
+import { EventManagementComponent } from './components/setup-event/manageable-event-components/event-management/event-management.component';
+import { SetupEventComponent } from './components/setup-event/setup-event.component';
 import { ViewPastEventsComponent } from './components/view-past-events/view-past-events.component';
 import { EventService } from './services/event.service';
 import { ParticipantService } from './services/participant.service';
-import { ParticipantManagementComponent } from './components/manage-event/manageable-event-components/participant-management/participant-management.component';
-import { StationManagementComponent } from './components/manage-event/manageable-event-components/station-management/station-management.component';
-import { CheckInManagementComponent } from './components/manage-event/manageable-event-components/check-in-management/check-in-management.component';
+import { ParticipantManagementComponent } from './components/setup-event/manageable-event-components/participant-management/participant-management.component';
+import { StationManagementComponent } from './components/setup-event/manageable-event-components/station-management/station-management.component';
+import { CheckInManagementComponent } from './components/setup-event/manageable-event-components/check-in-management/check-in-management.component';
 import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.component';
 
 @NgModule({
@@ -45,7 +47,7 @@ import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.
     CreateAccountComponent,
     RaceManagementComponent,
     EventManagementComponent,
-    ManageEventComponent,
+    SetupEventComponent,
     ViewPastEventsComponent,
     ParticipantManagementComponent,
     StationManagementComponent,
@@ -72,7 +74,9 @@ import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.
     ToolbarModule,
     InputNumberModule,
     BrowserAnimationsModule,
-    DropdownModule
+    DropdownModule,
+    BadgeModule,
+    AvatarModule
   ],
   providers: [LoginService, HttpClient, MessageService, EventService, ParticipantService],
   bootstrap: [AppComponent]

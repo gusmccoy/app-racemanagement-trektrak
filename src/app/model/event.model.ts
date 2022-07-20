@@ -1,4 +1,5 @@
 export interface Event {
-    name?: string;
+    id?: number;
     createUserId?: number;
+    name?: String;
 }
