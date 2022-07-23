@@ -7,6 +7,7 @@ import { SetupEventComponent } from './components/setup-event/setup-event.compon
 import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.component';
 import { RaceManagementComponent } from './components/race-management/race-management.component';
 import { ViewPastEventsComponent } from './components/view-past-events/view-past-events.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: 'home', component: LandingPageComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'manage-event', component: SetupEventComponent },
   { path: 'review-events', component: ViewPastEventsComponent },
   { path: 'ongoing-event', component: OngoingEventComponent },
+  { path: 'not-found', component: NotFoundComponent },
   { path: '', component: LoginComponent }
 
 ];
