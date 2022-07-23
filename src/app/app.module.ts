@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { StationManagementComponent } from './components/setup-event/manageable-
 import { CheckInManagementComponent } from './components/setup-event/manageable-event-components/check-in-management/check-in-management.component';
 import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CheckInService } from './services/check-in.service';
 
 @NgModule({
   declarations: [
@@ -78,9 +80,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     BrowserAnimationsModule,
     DropdownModule,
     BadgeModule,
-    AvatarModule
+    AvatarModule,
+    ToggleButtonModule
   ],
-  providers: [LoginService, HttpClient, MessageService, EventService, ParticipantService],
+  providers: [LoginService, HttpClient, MessageService, EventService, ParticipantService, CheckInService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
