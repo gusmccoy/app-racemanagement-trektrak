@@ -31,7 +31,7 @@ export class OngoingEventComponent implements OnInit {
   selectedStation?: Station;
   selectedCheckIns: CheckIn[] = [];
 
-  checkinBib: number = 0;
+  checkinBib?: number;
   checkIn?: CheckIn;
 
   items: MenuItem[] = [];
@@ -53,19 +53,22 @@ export class OngoingEventComponent implements OnInit {
     this.items = [
       {
         label: 'Check In Participants',
-        icon: 'pi pi-check-circle'
+        icon: 'pi pi-check-circle',
       },
       {
         label:'Event Stats',
-        icon:'pi pi-chart-bar'
+        icon:'pi pi-chart-bar',
+        command: () => this.route.navigateByUrl('/not-found')
       },
       {
         label:'Event Reports',
-        icon:'pi pi-book'
+        icon:'pi pi-book',
+        command: () => this.route.navigateByUrl('/not-found')
       },
       {
         label:'Event Settings',
-        icon:'pi pi-ellipsis-v'
+        icon:'pi pi-ellipsis-v',
+        command: () => this.route.navigateByUrl('/not-found')
       },
     ];
   }
@@ -95,7 +98,7 @@ export class OngoingEventComponent implements OnInit {
   }
 
   postCheckIn() {
-    if(this.validEntry(this.checkinBib)) {
+    if(this.validEntry(this.checkinBib as number)) {
       this.checkIn = {
         stationNumber: this.selectedStation?.stationNumber,
         eventId: this.selectedEvent?.id,
@@ -104,7 +107,7 @@ export class OngoingEventComponent implements OnInit {
       }
       this.checkInService.submitNewCheckIn(this.checkIn);
       this.checkIns.push(this.checkIn);
-      this.checkinBib = 0;
+      this.checkinBib = undefined;
     }
   }
 

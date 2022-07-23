@@ -2,6 +2,15 @@
     width: 15vw;
 }
 
+.hotbar-menu-item {
+    padding: 10px;
+}
+
+.hotbar-menu {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .sidenav {
     height: 100%; 
     width: 15.5%;
@@ -10,6 +19,6 @@
     top: 0;
     left: 0; 
     overflow-x: hidden;
-    padding-top: 70px;
+    padding-top: 75px;
     display: flex;
 }
