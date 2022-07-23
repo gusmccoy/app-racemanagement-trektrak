@@ -38,6 +38,7 @@ import { ParticipantManagementComponent } from './components/setup-event/managea
 import { StationManagementComponent } from './components/setup-event/manageable-event-components/station-management/station-management.component';
 import { CheckInManagementComponent } from './components/setup-event/manageable-event-components/check-in-management/check-in-management.component';
 import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.
     ParticipantManagementComponent,
     StationManagementComponent,
     CheckInManagementComponent,
-    OngoingEventComponent
+    OngoingEventComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
