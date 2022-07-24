@@ -76,7 +76,6 @@ export class OngoingEventComponent implements OnInit {
   fetchEventStationsAndParticipants(event: any) {
     this.participantService.getAllParticipantsByEventId(this.selectedEvent?.id as number).subscribe(data => {
       this.participants = data;
-      console.log(data);
     });
 
     this.stationService.getAllStationsByEventId(this.selectedEvent?.id as number).subscribe(data => {
@@ -105,7 +104,11 @@ export class OngoingEventComponent implements OnInit {
         bib: this.checkinBib,
         timestamp: new Date()
       }
-      this.checkInService.submitNewCheckIn(this.checkIn);
+      this.checkInService.submitNewCheckIn(this.checkIn).subscribe(
+        data => {
+          this.checkIn!.id = data;
+        }
+      );
       this.checkIns.push(this.checkIn);
       this.checkinBib = undefined;
     }
