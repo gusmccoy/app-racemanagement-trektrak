@@ -54,7 +54,12 @@ export class EventManagementComponent implements OnInit {
   saveEvent() {
     this.submitted = true;
     this.event.createUserId = LoginStatus.userId;
-    this.eventService.submitNewEvent(this.event).subscribe();
+    this.eventService.submitNewEvent(this.event).subscribe(
+      data => {
+        console.log(data);
+        this.event.id = data;
+      }
+    );
     this.events.push(this.event);
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'Event Created!', life: 3000});
 

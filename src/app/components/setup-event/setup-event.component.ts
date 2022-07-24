@@ -116,6 +116,13 @@ export class SetupEventComponent implements OnInit {
   refetchEvents() {
     this.eventService.getAllEventsByUserId(LoginStatus.userId).subscribe(data => {
       this.events = data;
+
+      if(this.selectedEvent == undefined) {
+        if(this.events.length > 0) {
+          this.selectedEvent = this.events[0];
+          this.broadcastSelection(null);
+        }
+      }
     });
   }
 

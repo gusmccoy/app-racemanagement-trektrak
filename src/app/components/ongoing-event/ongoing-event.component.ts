@@ -150,5 +150,4 @@ export class OngoingEventComponent implements OnInit {
       this.postCheckIn();
     }
   }
-
 }
