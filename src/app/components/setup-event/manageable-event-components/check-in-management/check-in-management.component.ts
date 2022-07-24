@@ -32,6 +32,7 @@ export class CheckInManagementComponent implements OnInit {
 
   editCheckIn(checkIn: CheckIn) {
     this.checkIn = {...checkIn};
+    //this.checkInDialog = true;
   }
 
   deleteCheckIn(checkIn: CheckIn) {
@@ -52,18 +53,35 @@ export class CheckInManagementComponent implements OnInit {
 
   saveCheckIn() {
     this.submitted = true;
-    this.checkIn.eventId = this.selectedEvent;
-    this.checkIn.timestamp = new Date();
-    this.checkInService.submitNewCheckIn(this.checkIn).subscribe(
-      data => {
-        this.checkIn.id = data;
-      }
-    );
-    this.checkIns.push(this.checkIn);
-    this.messageService.add({severity:'success', summary: 'Successful!', detail: 'Check-In Added', life: 3000});
-    this.checkIns = [...this.checkIns];
+    if(this.checkIn.id) {
+      this.checkIns[this.findIndexById(this.checkIn.id)] = this.checkIn;
+      this.checkInService.updateCheckIn(this.checkIn);
+      this.messageService.add({severity:'success', summary: 'Successful!', detail: 'Check-In Updated', life: 3000});
+    
+    } else {
+      this.checkIn.eventId = this.selectedEvent;
+      this.checkIn.timestamp = new Date();
+      this.checkInService.submitNewCheckIn(this.checkIn).subscribe(
+        data => {
+          this.checkIn.id = data;
+        }
+      );
+      this.checkIns.push(this.checkIn);
+      this.messageService.add({severity:'success', summary: 'Successful!', detail: 'Check-In Added', life: 3000});
+      this.checkIns = [...this.checkIns];
+    }
     this.checkInDialog = false;
     this.checkIn = {};
   }
 
+  findIndexById(id: number): number {
+    let index = -1;
+    for (let i = 0; i < this.checkIns.length; i++) {
+        if (this.checkIns[i].id === id) {
+          index = i;
+          break;
+        }
+    }
+    return index;
+  }
 }

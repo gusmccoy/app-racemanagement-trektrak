@@ -10,31 +10,36 @@ export class CheckInService {
 
   constructor(private http: HttpClient) { }
 
+  private baseUrl = "https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn";
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   submitNewCheckIn(newStationRequest : CheckIn) : Observable<number> {
-    return this.http.post<number>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/new", 
-      newStationRequest, this.httpOptions);
+    return this.http.post<number>(`${this.baseUrl}/new`, newStationRequest, this.httpOptions);
   }
 
   getAllCheckIns() : Observable<CheckIn[]> {
-    return this.http.get<CheckIn[]>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/all", this.httpOptions);
+    return this.http.get<CheckIn[]>(`${this.baseUrl}/all`, this.httpOptions);
   }
 
   getAllCheckInsByEventId(eventId: number) : Observable<CheckIn[]> {
-    return this.http.get<CheckIn[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/all/${eventId}`,
+    return this.http.get<CheckIn[]>(`${this.baseUrl}/all/${eventId}`,
      this.httpOptions);
   }
 
   getAllCheckInsByEventAndStationId(eventId: number, stationId: number) : Observable<CheckIn[]> {
-    return this.http.get<CheckIn[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/all/${eventId}/${stationId}`,
+    return this.http.get<CheckIn[]>(`${this.baseUrl}/all/${eventId}/${stationId}`,
      this.httpOptions);
   }
 
   deleteById(id: number) {
-    this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/delete/${id}`,
+    this.http.delete(`${this.baseUrl}/delete/${id}`,
      this.httpOptions).subscribe();
+  }
+
+  updateCheckIn(updatedCheckin: CheckIn) {
+    this.http.put(`${this.baseUrl}/update`, updatedCheckin, this.httpOptions).subscribe();
   }
 }

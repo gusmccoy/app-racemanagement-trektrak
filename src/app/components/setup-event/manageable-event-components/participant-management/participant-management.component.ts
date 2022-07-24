@@ -39,6 +39,7 @@ export class ParticipantManagementComponent implements OnInit {
 
   editParticipant(participant: Participant) {
     this.participant = {...participant};
+    this.participantDialog = true;
   }
 
   deleteParticipant(participant: Participant) {
@@ -65,7 +66,12 @@ export class ParticipantManagementComponent implements OnInit {
   saveParticipant() {
     this.submitted = true;
 
-    if (this.participant.firstName.trim()) {
+    if(this.participant.id) {
+      this.participants[this.findIndexById(this.participant.id)] = this.participant;
+      this.participantService.updateParticipant(this.participant);
+      this.messageService.add({severity:'success', summary: 'Successful!', detail: 'Participant Updated', life: 3000});
+    
+    } else {
       this.participant.eventId = this.selectedEvent as number;
       this.participantService.submitNewParticipant(this.participant).subscribe(
         data => {
@@ -75,14 +81,26 @@ export class ParticipantManagementComponent implements OnInit {
       this.participants.push(this.participant);
       this.messageService.add({severity:'success', summary: 'Successful', detail: 'Participant Added!', life: 3000});
       this.participants = [...this.participants];
-      this.participant = {
-        bib: 0,
-        firstName: '',
-        lastName: '',
-        eventId: 0
-      };
     }
+    
+    this.participant = {
+      bib: 0,
+      firstName: '',
+      lastName: '',
+      eventId: 0
+    };
     this.participantDialog = false;
+  }
+
+  findIndexById(id: number): number {
+    let index = -1;
+    for (let i = 0; i < this.participants.length; i++) {
+        if (this.participants[i].id === id) {
+          index = i;
+          break;
+        }
+    }
+    return index;
   }
 
 }

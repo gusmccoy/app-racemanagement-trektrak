@@ -33,6 +33,7 @@ export class StationManagementComponent implements OnInit {
 
   editStation(station: Station) {
     this.station = {...station};
+    this.stationDialog = true;
   }
 
   deleteStation(station: Station) {
@@ -53,17 +54,35 @@ export class StationManagementComponent implements OnInit {
 
   saveStation() {
     this.submitted = true;
-    this.station.eventId = this.selectedEvent;
-    this.stationService.submitNewStation(this.station).subscribe(
-      data => {
-        this.station.id = data;
-      }
-    );
-    this.stations.push(this.station);
-    this.messageService.add({severity:'success', summary: 'Successful', detail: 'Station Created!', life: 3000});
-    this.stations = [...this.stations];
+    if(this.station.id) {
+      this.stations[this.findIndexById(this.station.id)] = this.station;
+      this.stationService.updateStation(this.station);
+      this.messageService.add({severity:'success', summary: 'Successful!', detail: 'Station Updated', life: 3000});
+    
+    } else {
+      this.station.eventId = this.selectedEvent;
+      this.stationService.submitNewStation(this.station).subscribe(
+        data => {
+          this.station.id = data;
+        }
+      );
+      this.stations.push(this.station);
+      this.messageService.add({severity:'success', summary: 'Successful', detail: 'Station Created!', life: 3000});
+      this.stations = [...this.stations];
+    }
     this.stationDialog = false;
     this.station = {};
+  }
+
+  findIndexById(id: number): number {
+    let index = -1;
+    for (let i = 0; i < this.stations.length; i++) {
+        if (this.stations[i].id === id) {
+          index = i;
+          break;
+        }
+    }
+    return index;
   }
 
 }
