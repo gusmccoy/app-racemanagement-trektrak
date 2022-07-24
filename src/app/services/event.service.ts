@@ -14,9 +14,9 @@ export class EventService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  submitNewEvent(newEventRequest : Event) : void {
-    this.http.post<Event>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/event/new", 
-      newEventRequest, this.httpOptions).subscribe();
+  submitNewEvent(newEventRequest : Event) : Observable<number> {
+    return this.http.post<number>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/event/new", 
+      newEventRequest, this.httpOptions);
   }
 
   getAllEvents() : Observable<Event[]> {
@@ -25,5 +25,9 @@ export class EventService {
 
   getAllEventsByUserId(userId: number) : Observable<Event[]> {
     return this.http.get<Event[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/event/all/${userId}`, this.httpOptions);
+  }
+
+  deleteById(id: number) {
+    this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/event/delete/${id}`, this.httpOptions).subscribe();
   }
 }

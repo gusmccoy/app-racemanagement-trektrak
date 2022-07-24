@@ -26,7 +26,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { SplitterModule } from 'primeng/splitter';
 import { RaceManagementComponent } from './components/race-management/race-management.component';
@@ -83,7 +83,8 @@ import { CheckInService } from './services/check-in.service';
     AvatarModule,
     ToggleButtonModule
   ],
-  providers: [LoginService, HttpClient, MessageService, EventService, ParticipantService, CheckInService],
+  providers: [LoginService, HttpClient, MessageService,
+     EventService, ParticipantService, CheckInService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

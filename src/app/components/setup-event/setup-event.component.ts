@@ -31,7 +31,7 @@ export class SetupEventComponent implements OnInit {
   events: Event[] = [];
 
   selectedEvent!: Event;
-  toggleEventDropdown: boolean = true;
+  toggleEventDropdown: boolean = false;
 
   ngOnInit(): void {
 
@@ -75,6 +75,7 @@ export class SetupEventComponent implements OnInit {
         this.checkInComponent.editCheckInPanel = false;
         this.stationComponent.editStationPanel = false;
         this.eventComponent.editEventPanel = false;
+        this.toggleEventDropdown = true;
         this.refetchEvents();
         break;
       }
@@ -83,6 +84,7 @@ export class SetupEventComponent implements OnInit {
         this.participantComponent.editParticipantPanel = false;
         this.checkInComponent.editCheckInPanel = false;
         this.eventComponent.editEventPanel = false;
+        this.toggleEventDropdown = true;
         this.refetchEvents();
         break;
       }
@@ -91,6 +93,7 @@ export class SetupEventComponent implements OnInit {
         this.stationComponent.editStationPanel = false;
         this.participantComponent.editParticipantPanel = false;
         this.eventComponent.editEventPanel = false;
+        this.toggleEventDropdown = true;
         this.refetchEvents();
         break;
       }
@@ -99,6 +102,7 @@ export class SetupEventComponent implements OnInit {
         this.checkInComponent.editCheckInPanel = false;
         this.stationComponent.editStationPanel = false;
         this.participantComponent.editParticipantPanel = false;
+        this.toggleEventDropdown = false;
         this.eventComponent.fetchEvents();
         break;
       }

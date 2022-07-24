@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Event } from 'src/app/model/event.model';
 import { EventService } from 'src/app/services/event.service';
 import { LoginStatus } from 'src/app/static/login-status';
@@ -11,7 +11,8 @@ import { LoginStatus } from 'src/app/static/login-status';
 })
 export class EventManagementComponent implements OnInit {
 
-  constructor(private eventService: EventService, private messageService: MessageService) { }
+  constructor(private eventService: EventService, private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
 
   events: Event[] = [];
   selectedEvents: Event[] = [];
@@ -34,7 +35,10 @@ export class EventManagementComponent implements OnInit {
     this.event = {...event};
   }
 
-  deleteEvent(event: Event) {};
+  deleteEvent(event: Event) {
+    this.events = this.events.filter(val => val.id !== event.id);
+    this.eventService.deleteById(event.id as number);
+  };
 
   openNew() {
     this.event = {};
@@ -49,20 +53,13 @@ export class EventManagementComponent implements OnInit {
 
   saveEvent() {
     this.submitted = true;
-        //if (this.product.id) {
-          //  this.products[this.findIndexById(this.product.id)] = this.product;
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-        //}
-        //else {
-            //this.product.id = this.createId();
-            this.event.createUserId = 2;
-            this.eventService.submitNewEvent(this.event);
-            this.events.push(this.event);
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Event Created!', life: 3000});
-        //}
+    this.event.createUserId = LoginStatus.userId;
+    this.eventService.submitNewEvent(this.event).subscribe();
+    this.events.push(this.event);
+    this.messageService.add({severity:'success', summary: 'Successful', detail: 'Event Created!', life: 3000});
 
-        this.events = [...this.events];
-        this.eventDialog = false;
-        this.event = {};
-    }
+    this.events = [...this.events];
+    this.eventDialog = false;
+    this.event = {};
+  }
 }
