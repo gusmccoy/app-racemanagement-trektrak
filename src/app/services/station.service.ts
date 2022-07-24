@@ -14,9 +14,9 @@ export class StationService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  submitNewStation(newStationRequest : Station) : void {
-    this.http.post<Station>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/new", 
-    newStationRequest, this.httpOptions).subscribe();
+  submitNewStation(newStationRequest : Station) : Observable<number> {
+    return this.http.post<number>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/new", 
+      newStationRequest, this.httpOptions);
   }
 
   getAllStations() : Observable<Station[]> {
@@ -25,5 +25,9 @@ export class StationService {
 
   getAllStationsByEventId(eventId: number) : Observable<Station[]> {
     return this.http.get<Station[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/all/${eventId}`, this.httpOptions);
+  }
+
+  deleteById(id: number) {
+    return this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/delete/${id}`, this.httpOptions);
   }
 }

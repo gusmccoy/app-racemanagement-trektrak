@@ -43,7 +43,8 @@ export class StationManagementComponent implements OnInit {
   }
 
   deleteStation(station: Station) {
-
+    this.stations = this.stations.filter(val => val.id !== station.id);
+    this.stationService.deleteById(station.id as number);
   };
 
   openNew() {
@@ -59,21 +60,18 @@ export class StationManagementComponent implements OnInit {
 
   saveStation() {
     this.submitted = true;
-        //if (this.product.id) {
-          //  this.products[this.findIndexById(this.product.id)] = this.product;
-            //this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-        //}
-        //else {
-            //this.product.id = this.createId();
-            this.station.eventId = this.selectedEvent;
-            this.stationService.submitNewStation(this.station);
-            this.stations.push(this.station);
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Station Created!', life: 3000});
-        //}
+    this.station.eventId = this.selectedEvent;
+    this.stationService.submitNewStation(this.station).subscribe(
+      data => {
+        this.station.id = data;
+      }
+    );
+    this.stations.push(this.station);
+    this.messageService.add({severity:'success', summary: 'Successful', detail: 'Station Created!', life: 3000});
 
-        this.stations = [...this.stations];
-        this.stationDialog = false;
-        this.station = {};
+    this.stations = [...this.stations];
+    this.stationDialog = false;
+    this.station = {};
   }
 
 }

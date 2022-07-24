@@ -14,9 +14,9 @@ export class CheckInService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  submitNewCheckIn(newStationRequest : CheckIn) : void {
-    this.http.post<CheckIn>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/new", 
-    newStationRequest, this.httpOptions).subscribe();
+  submitNewCheckIn(newStationRequest : CheckIn) : Observable<number> {
+    return this.http.post<number>("https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/new", 
+      newStationRequest, this.httpOptions);
   }
 
   getAllCheckIns() : Observable<CheckIn[]> {
@@ -31,5 +31,10 @@ export class CheckInService {
   getAllCheckInsByEventAndStationId(eventId: number, stationId: number) : Observable<CheckIn[]> {
     return this.http.get<CheckIn[]>(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/all/${eventId}/${stationId}`,
      this.httpOptions);
+  }
+
+  deleteById(id: number) {
+    this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/stationCheckIn/delete/${id}`,
+     this.httpOptions).subscribe();
   }
 }
