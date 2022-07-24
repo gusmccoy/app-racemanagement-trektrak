@@ -29,7 +29,8 @@ export class ParticipantService {
   }
 
   deleteById(id: number) {
-    return this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/participant/delete/${id}`, this.httpOptions);
+    return this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/participant/delete/${id}`, this.httpOptions)
+      .subscribe();
 
   }
 }

@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Station } from 'src/app/model/station.model';
 import { StationService } from 'src/app/services/station.service';
@@ -13,21 +13,14 @@ export class StationManagementComponent implements OnInit {
   constructor(private stationService: StationService, private messageService: MessageService) { }
 
   stations: Station[] = [];
-
-  submitted: boolean = false;
-
-  stationDialog: boolean = false;
-
-  selectedEvent?: number;
-
-  station: Station = {
-    stationNumber: 0,
-    name: ''
-  };
-
   selectedStations: Station[] = [];
 
+  submitted: boolean = false;
+  stationDialog: boolean = false;
   editStationPanel: boolean = false;
+
+  selectedEvent?: number;
+  station: Station = {};
 
   ngOnInit(): void {
   }
@@ -68,7 +61,6 @@ export class StationManagementComponent implements OnInit {
     );
     this.stations.push(this.station);
     this.messageService.add({severity:'success', summary: 'Successful', detail: 'Station Created!', life: 3000});
-
     this.stations = [...this.stations];
     this.stationDialog = false;
     this.station = {};

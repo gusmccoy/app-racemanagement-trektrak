@@ -28,6 +28,7 @@ export class StationService {
   }
 
   deleteById(id: number) {
-    return this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/delete/${id}`, this.httpOptions);
+    return this.http.delete(`https://www.gusmccoy.dev/ws_racemanagement_trektrak/station/delete/${id}`, this.httpOptions)
+      .subscribe();
   }
 }
