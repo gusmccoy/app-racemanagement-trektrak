@@ -44,12 +44,12 @@
     <ng-template pTemplate="content">
         <div class="field">
             <label for="name">Station Number</label>
-            <p-inputNumber id="stationNumber" [(ngModel)]="station.stationNumber"></p-inputNumber>
+            <p-inputNumber id="stationNumber" [(ngModel)]="station.stationNumber" autofocus></p-inputNumber>
             <small class="p-error" *ngIf="submitted && !station.stationNumber">Station number is required.</small>
         </div>
         <div class="field">
             <label for="name">Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="station.name" required autofocus />
+            <input type="text" pInputText id="name" [(ngModel)]="station.name" required />
         </div>
     </ng-template>
 

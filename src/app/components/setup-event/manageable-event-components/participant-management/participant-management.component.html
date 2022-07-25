@@ -3,27 +3,12 @@
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <!--<button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>-->
         </ng-template>
-
-        <!--<ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
-        </ng-template>-->
     </p-toolbar>
 
     <p-table #dt [value]="participants" [rows]="10" [paginator]="true" 
         responsiveLayout="scroll" [(selection)]="selectedParticipants" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <!--<ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Manage Participants</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
-                </span>
-            </div>
-        </ng-template>-->
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
@@ -61,16 +46,16 @@
     <ng-template pTemplate="content">
         <div class="field">
             <label for="name">Bib Number</label>
-            <p-inputNumber id="bib" [(ngModel)]="participant.bib"></p-inputNumber>
+            <p-inputNumber id="bib" [(ngModel)]="participant.bib" autofocus></p-inputNumber>
             <small class="p-error" *ngIf="submitted && !participant.bib">Bib number is required.</small>
         </div>
         <div class="field">
             <label for="name">First Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="participant.firstName" required autofocus />
+            <input type="text" pInputText id="name" [(ngModel)]="participant.firstName" required />
         </div>
         <div class="field">
             <label for="name">Last Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="participant.lastName" required autofocus />
+            <input type="text" pInputText id="name" [(ngModel)]="participant.lastName" required />
         </div>
     </ng-template>
 

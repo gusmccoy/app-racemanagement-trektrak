@@ -37,7 +37,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                In total there are {{checkIns ? checkIns.length : 0 }} checkIns.
+                In total there are {{checkIns ? checkIns.length : 0 }} Check ins.
             </div>
         </ng-template>
     </p-table>
@@ -47,11 +47,12 @@
     <ng-template pTemplate="content">
         <div class="field">
             <label for="stationNumber">Station Number</label>
-            <p-inputNumber pInputText id="stationNumber" [(ngModel)]="checkIn.stationNumber"></p-inputNumber>
+            <p-inputNumber id="station" [(ngModel)]="checkIn.stationNumber" autofocus></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !checkIn.stationNumber">Bib number is required.</small>
         </div>
         <div class="field">
-            <label for="stationNumber">Bib Number</label>
-            <p-inputNumber id="bib" [(ngModel)]="checkIn.bib" autofocus></p-inputNumber>
+            <label for="bibNumber">Bib Number</label>
+            <p-inputNumber id="bib" [(ngModel)]="checkIn.bib"></p-inputNumber>
             <small class="p-error" *ngIf="submitted && !checkIn.bib">Bib number is required.</small>
         </div>
     </ng-template>
