@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Login } from '../model/login.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as bcrypt from 'bcryptjs';
 import { LoginRequestResponseDTO } from '../model/loginresponse.model';
@@ -11,7 +11,18 @@ import { LoginRequestDTO } from '../model/loginrequest.model';
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) { }
+  isLoggedIn: boolean = true;
+  logInStatusChange: Subject<boolean> = new Subject<boolean>();
+
+  constructor(private http: HttpClient) { 
+    this.logInStatusChange.subscribe((value) => {
+      this.isLoggedIn = value
+    });
+  }
+
+  toggleSidebarLogInStatus() {
+    this.logInStatusChange.next(!this.isLoggedIn);
+}
 
   async encryptData(password : string) {
     const salt = await bcrypt.genSalt(6);

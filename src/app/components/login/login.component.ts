@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   async loginSubmit(event: any) {
     (await this.loginService.submitLoginRequest(this.login)).subscribe(async data => {
       if(await this.loginService.decryptData(data.password, this.login.password)) {
+        this.loginService.toggleSidebarLogInStatus();
         LoginStatus.status = true;
         LoginStatus.username = this.login.username;
         LoginStatus.userId = data.id;

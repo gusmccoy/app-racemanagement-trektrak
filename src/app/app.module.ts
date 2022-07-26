@@ -41,6 +41,7 @@ import { CheckInManagementComponent } from './components/setup-event/manageable-
 import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CheckInService } from './services/check-in.service';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { CheckInService } from './services/check-in.service';
     StationManagementComponent,
     CheckInManagementComponent,
     OngoingEventComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
