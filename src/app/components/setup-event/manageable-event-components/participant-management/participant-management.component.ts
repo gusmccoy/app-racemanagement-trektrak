@@ -14,6 +14,7 @@ export class ParticipantManagementComponent implements OnInit {
 
   participants: Participant[] = [];
   selectedParticipants: Participant[] = [];
+  uploadedFiles: any[] = [];
 
   submitted: boolean = false;
   participantDialog: boolean = false;
@@ -101,6 +102,14 @@ export class ParticipantManagementComponent implements OnInit {
         }
     }
     return index;
+  }
+
+  onUpload(event: any) {
+    for(let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
+
+    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
   }
 
 }

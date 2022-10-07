@@ -14,6 +14,7 @@ export class StationManagementComponent implements OnInit {
 
   stations: Station[] = [];
   selectedStations: Station[] = [];
+  uploadedFiles: any[] = [];
 
   submitted: boolean = false;
   stationDialog: boolean = false;
@@ -83,6 +84,14 @@ export class StationManagementComponent implements OnInit {
         }
     }
     return index;
+  }
+
+  onUpload(event: any) {
+    for(let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
+
+    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
   }
 
 }
