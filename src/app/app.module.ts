@@ -42,6 +42,7 @@ import { OngoingEventComponent } from './components/ongoing-event/ongoing-event.
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CheckInService } from './services/check-in.service';
 import { HeaderComponent } from './components/header/header.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { HeaderComponent } from './components/header/header.component';
     DropdownModule,
     BadgeModule,
     AvatarModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    FileUploadModule
   ],
   providers: [LoginService, HttpClient, MessageService,
      EventService, ParticipantService, CheckInService, ConfirmationService],

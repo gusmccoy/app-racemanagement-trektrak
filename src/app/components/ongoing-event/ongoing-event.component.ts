@@ -35,6 +35,7 @@ export class OngoingEventComponent implements OnInit {
   checkIn?: CheckIn;
 
   items: MenuItem[] = [];
+  cols: any[] = [];
 
   entryValidationToggled: boolean = true;
 
@@ -71,6 +72,12 @@ export class OngoingEventComponent implements OnInit {
         command: () => this.route.navigateByUrl('/not-found')
       },
     ];
+
+    this.cols = [
+      { field: 'stationNumber', header: 'Station' },
+      { field: 'bib', header: 'Bib' },
+      { field: 'timestamp', header: 'Timestamp' }
+    ]
   }
 
   fetchEventStationsAndParticipants(event: any) {
@@ -149,5 +156,24 @@ export class OngoingEventComponent implements OnInit {
     if(event.key == "Enter"){
       this.postCheckIn();
     }
+  }
+
+  exportPdf() {
+    /*import("jspdf").then(jsPDF => {
+        import("jspdf-autotable").then(x => {
+            const doc = new jsPDF.default(0,0);
+            doc.autoTable(this.columns, this.cars);
+            doc.save('primengTable.pdf');
+        })
+    })*/
+  }
+
+exportExcel() {
+    /*import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet(this.getCars());
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "primengTable");
+    });*/
   }
 }

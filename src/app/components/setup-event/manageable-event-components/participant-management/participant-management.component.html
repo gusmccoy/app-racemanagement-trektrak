@@ -4,6 +4,9 @@
         <ng-template pTemplate="left">
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
         </ng-template>
+        <p-fileUpload chooseIcon="pi pi-upload" mode="basic" name="demo[]" url="./upload.php" accept=".csv"
+            [auto]="true"  (onUpload)="onUpload($event)">
+        </p-fileUpload>
     </p-toolbar>
 
     <p-table #dt [value]="participants" [rows]="10" [paginator]="true" 

@@ -20,10 +20,15 @@
         </span>
     </div>
 
-    <p-table #dt [value]="checkIns" [rows]="10" [paginator]="true" 
-        responsiveLayout="scroll" [(selection)]="selectedCheckIns" [rowHover]="true" dataKey="id"
+    <p-table #dt [value]="checkIns" [rows]="10" [paginator]="true" [columns]="cols"
+        responsiveLayout="scroll" [(selection)]="selectedCheckIns" selectionMode="multiple" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-
+        <ng-template pTemplate="caption">
+            <div class="ui-helper-clearfix" style="text-align: left">
+                <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button>
+                <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
+            </div>
+        </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
@@ -31,7 +36,7 @@
                 </th>
                 <th pSortableColumn="stationNumber">Station Number <p-sortIcon field="stationNumber"></p-sortIcon></th>
                 <th pSortableColumn="bib">Bib<p-sortIcon field="bib"></p-sortIcon></th>
-                <th pSortableColumn="bib">Time<p-sortIcon field="timestamp"></p-sortIcon></th>
+                <th pSortableColumn="timestamp">Time<p-sortIcon field="timestamp"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
